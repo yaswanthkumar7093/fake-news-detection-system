@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduBot – College Enquiry Assistant</title>
+  <meta name="description" content="Get instant answers to all your college enquiry questions with EduBot, your AI-powered college assistant. Admissions, courses, fees, campus life and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-icon">🎓</div>
+        <span class="logo-text">Edu<span class="accent">Bot</span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#topics" class="nav-link">Topics</a></li>
+        <li><a href="#chatbot" class="nav-link">Chat Now</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="cta-nav-btn" onclick="scrollToChat()">Ask a Question</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-lines"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        AI-Powered College Assistant
+      </div>
+      <h1 class="hero-title">
+        Your Smart Guide to<br/>
+        <span class="gradient-text">College Admissions</span>
+      </h1>
+      <p class="hero-subtitle">
+        Get instant, accurate answers about admissions, courses, fees, scholarships,
+        campus life and everything you need to begin your academic journey.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToChat()">
+          <span>Start Chatting</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+          Explore Features
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Questions Answered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">50+</span>
+          <span class="stat-label">Topics Covered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">24/7</span>
+          <span class="stat-label">Available</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="chat-preview-card">
+        <div class="card-header">
+          <div class="bot-avatar-sm">🤖</div>
+          <div>
+            <div class="card-title">EduBot</div>
+            <div class="card-status"><span class="online-dot"></span>Online</div>
+          </div>
+        </div>
+        <div class="preview-messages">
+          <div class="preview-msg bot-msg">Hello! 👋 How can I help you with college admissions today?</div>
+          <div class="preview-msg user-msg">What are the admission requirements?</div>
+          <div class="preview-msg bot-msg typing-preview">Checking admission criteria for you...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES SECTION ===== -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Why EduBot?</span>
+        <h2 class="section-title">Everything You Need to Know</h2>
+        <p class="section-subtitle">Our intelligent chatbot covers every aspect of your college journey</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-delay="0">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">📋</div>
+          <h3>Admissions Info</h3>
+          <p>Get detailed information about eligibility criteria, application deadlines, required documents and entrance exams.</p>
+        </div>
+        <div class="feature-card" data-delay="100">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">📚</div>
+          <h3>Courses & Programs</h3>
+          <p>Explore undergraduate, postgraduate and diploma programs across all departments and specializations.</p>
+        </div>
+        <div class="feature-card" data-delay="200">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #10b981, #059669);">💰</div>
+          <h3>Fee Structure</h3>
+          <p>Transparent fee breakdowns for tuition, hostel, library, and other college expenses per semester/year.</p>
+        </div>
+        <div class="feature-card" data-delay="300">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🏆</div>
+          <h3>Scholarships</h3>
+          <p>Discover merit-based, need-based and government scholarships available for eligible students.</p>
+        </div>
+        <div class="feature-card" data-delay="400">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">🏠</div>
+          <h3>Campus & Hostel</h3>
+          <p>Learn about campus facilities, hostel accommodation, sports, labs and student amenities.</p>
+        </div>
+        <div class="feature-card" data-delay="500">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #f97316, #ea580c);">💼</div>
+          <h3>Placements</h3>
+          <p>Explore placement records, top recruiters, salary packages and career development programs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUICK TOPICS ===== -->
+  <section class="topics" id="topics">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Quick Topics</span>
+        <h2 class="section-title">Popular Questions</h2>
+        <p class="section-subtitle">Click any topic to instantly ask EduBot</p>
+      </div>
+      <div class="topics-grid">
+        <button class="topic-chip" onclick="askQuickQuestion('What are the admission requirements?')">🎯 Admission Requirements</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What is the fee structure?')">💳 Fee Structure</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What courses are available?')">📘 Available Courses</button>
+        <button class="topic-chip" onclick="askQuickQuestion('Tell me about scholarships')">🎖️ Scholarships</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What are the hostel facilities?')">🏠 Hostel Facilities</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What is the placement record?')">💼 Placement Record</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What entrance exams are accepted?')">📝 Entrance Exams</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What are the application deadlines?')">📅 Application Deadlines</button>
+        <button class="topic-chip" onclick="askQuickQuestion('Tell me about campus facilities')">🏫 Campus Facilities</button>
+        <button class="topic-chip" onclick="askQuickQuestion('How to apply for admission?')">✅ How to Apply</button>
+        <button class="topic-chip" onclick="askQuickQuestion('What is the college ranking?')">🏅 College Ranking</button>
+        <button class="topic-chip" onclick="askQuickQuestion('Tell me about faculty')">👩‍🏫 Faculty Info</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHATBOT SECTION ===== -->
+  <section class="chatbot-section" id="chatbot">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Live Chat</span>
+        <h2 class="section-title">Ask EduBot Anything</h2>
+        <p class="section-subtitle">Your intelligent college enquiry assistant is ready to help</p>
+      </div>
+
+      <div class="chatbot-wrapper">
+        <!-- Sidebar -->
+        <div class="chat-sidebar">
+          <div class="sidebar-section">
+            <h4>Quick Topics</h4>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What are the admission requirements?')">📋 Admissions</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What courses are available?')">📚 Courses</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What is the fee structure?')">💰 Fees</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('Tell me about scholarships')">🏆 Scholarships</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What are the hostel facilities?')">🏠 Hostel</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What is the placement record?')">💼 Placements</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('Tell me about campus facilities')">🏫 Campus</button>
+            <button class="sidebar-btn" onclick="askQuickQuestion('What entrance exams are accepted?')">📝 Exams</button>
+          </div>
+          <div class="sidebar-section">
+            <h4>Contact Support</h4>
+            <div class="contact-info">
+              <div class="contact-item">📞 +91-9876543210</div>
+              <div class="contact-item">✉️ admissions@edu.ac.in</div>
+              <div class="contact-item">🕐 Mon-Sat, 9AM-5PM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Window -->
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div class="bot-avatar">🤖</div>
+              <div>
+                <div class="chat-bot-name">EduBot – College Assistant</div>
+                <div class="chat-bot-status"><span class="online-dot"></span>Online & Ready to Help</div>
+              </div>
+            </div>
+            <div class="chat-actions">
+              <button class="chat-action-btn" id="clearChatBtn" onclick="clearChat()" title="Clear chat">🗑️</button>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <!-- Welcome message injected by JS -->
+          </div>
+
+          <div class="typing-indicator" id="typingIndicator">
+            <div class="bot-avatar-xs">🤖</div>
+            <div class="typing-dots">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <div class="quick-replies" id="quickReplies">
+              <button class="quick-reply" onclick="askQuickQuestion('Tell me about admissions')">Admissions</button>
+              <button class="quick-reply" onclick="askQuickQuestion('Fee structure')">Fees</button>
+              <button class="quick-reply" onclick="askQuickQuestion('Available courses')">Courses</button>
+              <button class="quick-reply" onclick="askQuickQuestion('Scholarship details')">Scholarships</button>
+            </div>
+            <div class="input-row">
+              <input
+                type="text"
+                id="userInput"
+                class="chat-input"
+                placeholder="Type your question here..."
+                autocomplete="off"
+                maxlength="300"
+              />
+              <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact-section" id="contact">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Get In Touch</span>
+        <h2 class="section-title">Still Have Questions?</h2>
+        <p class="section-subtitle">Our admissions team is here to help you in person</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h3>Visit Us</h3>
+          <p>123, Education Nagar, University Road, Hyderabad – 500001, Telangana, India</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Call Us</h3>
+          <p>+91-9876543210<br/>+91-8765432109</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <h3>Email Us</h3>
+          <p>admissions@edu.ac.in<br/>info@edu.ac.in</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">🕐</div>
+          <h3>Office Hours</h3>
+          <p>Monday – Saturday<br/>9:00 AM – 5:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">🎓 Edu<span class="accent">Bot</span></div>
+        <p>Your trusted AI-powered college enquiry assistant. Get answers to all your admission questions instantly, 24/7.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#topics">Topics</a>
+        <a href="#chatbot">Chat Now</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Topics</h4>
+        <a href="#" onclick="askQuickQuestion('What are the admission requirements?')">Admissions</a>
+        <a href="#" onclick="askQuickQuestion('What courses are available?')">Courses</a>
+        <a href="#" onclick="askQuickQuestion('What is the fee structure?')">Fee Structure</a>
+        <a href="#" onclick="askQuickQuestion('Tell me about scholarships')">Scholarships</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 EduBot – College Enquiry Assistant. Built with ❤️ for students.</p>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING CHATBOT BUTTON ===== -->
+  <button class="floating-chat-btn" id="floatingBtn" onclick="scrollToChat()" title="Open Chat">
+    💬
+    <span class="floating-badge">Ask!</span>
+  </button>
+
+  <script src="chatbot.js"></script>
+</body>
+</html>
