@@ -1,0 +1,22 @@
+{
+  "name": "fake-news-detection-system",
+  "version": "1.0.0",
+  "description": "AI-powered fake news detection system using BERT + NLP heuristics",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
