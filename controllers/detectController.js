@@ -65,6 +65,27 @@ const IMPOSSIBLE_CLAIMS_PATTERNS = [
   /(clinton|obama|soros|rothschild|rockefeller) secret (plan|plot|agenda|meeting)/i,
 ];
 
+// --- Category 5b: Sweeping unverified authority claim patterns ---
+const SWEEPING_CLAIM_PATTERNS = [
+  // All exams / schools / colleges cancelled/banned
+  /(all|every|entire|complete).{0,30}(exam|exams|school|college|university|test).{0,30}(cancel|cancelled|banned|abolished|suspended|eliminated|stopped)/i,
+  // Permanently cancelled/banned anything major
+  /permanently (cancel|cancelled|ban|banned|abolish|abolished|suspend|suspended)/i,
+  // Government announced sweeping change with no source
+  /(government|ministry|minister|president|prime minister|pm|chief minister|cm).{0,40}(announced|declared|decided|ordered|confirmed).{0,60}(cancel|ban|abolish|suspend|eliminate|stop|end)/i,
+  // "from next month/week/year" — unverified timeline claim
+  /from (next|this) (month|week|year|semester).{0,30}(cancel|ban|end|stop|close|suspend)/i,
+  /will be (permanently|completely|entirely|immediately) (cancel|cancelled|ban|banned|stop|stopped|close|closed|abolish|abolished)/i,
+  // Sudden policy reversals
+  /(scraps?|scrap|scrapped|abolish|abolished|wipe out|wipes? out).{0,40}(exam|tax|law|rule|policy|scheme|program)/i,
+  // Unverified death/injury toll
+  /over \d+ (people|persons|students|workers|soldiers|civilians) (dead|died|killed|injured)/i,
+  // Secret/leaked government documents
+  /(leaked?|secret|classified|confidential).{0,20}(document|file|report|memo|order|directive)/i,
+  // "Will be free" / "Will get money" viral WhatsApp-style claims
+  /(every|all) (indian|citizen|student|family|household).{0,30}(get|receive|given|entitled).{0,20}(free|money|cash|rupees?|\$|dollars?)/i,
+];
+
 // --- Category 6: Emotional trigger words ---
 const EMOTIONAL_TRIGGERS = [
   'outrage','outraged','furious','enraged','disgusting','sick','evil','wicked',
@@ -154,6 +175,17 @@ function analyzeLinguistics(text) {
   if (foundImpossible.length > 0) {
     fakeScore += foundImpossible.length * 32;
     indicators.push('Extraordinary/impossible claims detected');
+  }
+
+  // ── 2b. Sweeping authority claims without citation (HIGH weight) ──────────
+  const foundSweeping = SWEEPING_CLAIM_PATTERNS.filter(p => p.test(text));
+  if (foundSweeping.length > 0) {
+    // Only penalise if there is NO credible citation in the same text
+    const hasTrustedSource = /\b(reuters|ap news|associated press|bbc|ndtv|the hindu|hindustan times|times of india|published|peer.reviewed|official statement|press release|pib\.gov)\b/i.test(text);
+    if (!hasTrustedSource) {
+      fakeScore += foundSweeping.length * 22;
+      indicators.push('Sweeping policy/authority claim with no verifiable source');
+    }
   }
 
   // ── 3. Medical misinformation (HIGH weight) ────────────────────────────────
@@ -336,10 +368,11 @@ export const detectFakeNews = async (req, res, next) => {
     if (mlResult.available && mlResult.score !== null) {
       // ML available: 55% ML + 35% linguistics + 10% source
       const srcScore = sourceResult?.score ?? 50;
-      compositeScore = mlResult.score * 0.55 + linguistics.score * 0.35 + (sourceResult ? srcScore * 0.10 : 0);
-      if (!sourceResult) compositeScore = mlResult.score * 0.60 + linguistics.score * 0.40;
+      compositeScore = sourceResult
+        ? mlResult.score * 0.55 + linguistics.score * 0.35 + srcScore * 0.10
+        : mlResult.score * 0.60 + linguistics.score * 0.40;
     } else {
-      // ML unavailable: 80% linguistics + 20% source (if available)
+      // ML unavailable: pure linguistics + optional source
       compositeScore = sourceResult
         ? linguistics.score * 0.80 + sourceResult.score * 0.20
         : linguistics.score;
@@ -347,11 +380,22 @@ export const detectFakeNews = async (req, res, next) => {
 
     compositeScore = Math.round(Math.max(0, Math.min(100, compositeScore)));
 
-    // ── Verdict with calibrated thresholds ────────────────────────────────
+    // ── Verdict — ML-aware thresholds ─────────────────────────────────────
+    // Key rule: without ML we cannot confidently call something REAL.
+    // Only mark LIKELY REAL when strong citation signals drove score to near 0,
+    // OR when ML is available and confirms it.
     let verdict, verdictColor;
-    if      (compositeScore >= 60) { verdict = 'LIKELY FAKE';  verdictColor = 'red';    }
-    else if (compositeScore >= 38) { verdict = 'UNCERTAIN';    verdictColor = 'yellow'; }
-    else                            { verdict = 'LIKELY REAL';  verdictColor = 'green';  }
+    if (compositeScore >= 60) {
+      verdict = 'LIKELY FAKE';   verdictColor = 'red';
+    } else if (!mlResult.available && compositeScore >= 4) {
+      // ML unavailable + any suspicious signal → honest UNCERTAIN
+      verdict = 'UNCERTAIN';     verdictColor = 'yellow';
+    } else if (compositeScore >= 35) {
+      verdict = 'UNCERTAIN';     verdictColor = 'yellow';
+    } else {
+      // Score < 35 (with ML) or < 4 (without ML — meaning strong citation signals)
+      verdict = 'LIKELY REAL';   verdictColor = 'green';
+    }
 
     // ── Response ──────────────────────────────────────────────────────────
     const response = {
