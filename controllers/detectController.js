@@ -12,8 +12,9 @@ const SENSATIONAL = [
   'REVEALED','SECRET','SECRETS','HIDDEN','COVER-UP','COVERUP','CONSPIRACY',
   'HOAX','STAGED','FAKED','FALSE FLAG','CRISIS ACTOR','CRISIS ACTORS',
   'WAKE UP','SHEEPLE','THEY DON\'T WANT YOU TO KNOW','SHARE BEFORE',
-  'MUST SEE','URGENT','ALERT','BOMBSHELL','SCANDAL','OUTRAGE',
-  'DISGUSTING','SICK','EVIL','CORRUPT','TRAITOR','TREASON','LIES'
+  'MUST SEE','URGENT','ALERT','SCANDAL','OUTRAGE','WHISTLEBLOWER',
+  'DISGUSTING','SICK','EVIL','CORRUPT','TRAITOR','TREASON','LIES',
+  'SUPPRESSED','SILENCED','THEY ARE HIDING','FORBIDDEN TRUTH'
 ];
 
 // --- Category 2: Conspiracy / pseudoscience terms (very strong fake signal) ---
@@ -151,7 +152,7 @@ function analyzeLinguistics(text) {
   // ── 2. Impossible claim patterns (VERY HIGH weight) ──────────────────────
   const foundImpossible = IMPOSSIBLE_CLAIMS_PATTERNS.filter(p => p.test(text));
   if (foundImpossible.length > 0) {
-    fakeScore += foundImpossible.length * 25;
+    fakeScore += foundImpossible.length * 32;
     indicators.push('Extraordinary/impossible claims detected');
   }
 
