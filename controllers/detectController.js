@@ -252,7 +252,7 @@ function analyzeLinguistics(text) {
   }
 
   // ── 11. Citation / publication signals ────────────────────────────────────
-  const hasCitation = /\b(reuters|ap news|bbc|published in|peer.reviewed|journal|study found|research shows|scientists at|university of|according to (a |the )?(study|report|research))\b/i.test(text);
+  const hasCitation = /\b(reuters|ap news|bbc|ndtv|the hindu|hindustan times|times of india|india today|published in|peer.reviewed|journal|study found|research shows|scientists at|university of|official statement|press release|pib\.gov|according to (a |the )?(study|report|research|ministry|government))\b/i.test(text);
   if (hasCitation) {
     fakeScore -= 12;
     indicators.push('Credible source or publication reference found');
